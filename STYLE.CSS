@@ -1,0 +1,203 @@
+/* ------------------------------
+   ESTILOS GENERALES
+------------------------------ */
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    background: linear-gradient(135deg, #7c4dff, #448aff);
+    color: white;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    margin: 0;
+    font-size: 28px;
+    letter-spacing: 1px;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+}
+
+h2, h3 {
+    text-align: center;
+    color: #333;
+}
+
+/* ------------------------------
+   MENÚ PRINCIPAL
+------------------------------ */
+.menu-principal {
+    background: #ffffff;
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+button {
+    background: #7c4dff;
+    color: lab(100% 0.01 -0.01);
+    border: none;
+    padding: 12px 18px;
+    margin: 8px 5px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #551fff;
+    transform: scale(1.05);
+}
+
+/* ------------------------------
+   CONTENEDOR DE CATEGORÍAS
+------------------------------ */
+#contenedorCategorias {
+    width: 95%;
+    max-width: 700px;
+    background: white;
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+}
+
+.btn-volver {
+    background: #ff5252;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.btn-volver:hover {
+    background: #ff1744;
+}
+
+/* ------------------------------
+   SECCIONES INTERNAS
+------------------------------ */
+.seccion {
+    display: none;
+    background: #fafafa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 15px;
+    box-shadow: 0px 3px 8px rgba(0,0,0,0.1);
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    font-size: 16px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    outline: none;
+    transition: 0.2s;
+}
+
+input:focus {
+    border-color: #7c4dff;
+    box-shadow: 0 0 4px rgba(124, 77, 255, 0.4);
+}
+
+/* ------------------------------
+   TABLA
+------------------------------ */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+th {
+    background: #7c4dff;
+    color: white;
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+    background: #f1eeff;
+}
+
+/* ------------------------------
+   MESSAGES
+------------------------------ */
+.mensaje {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* ------------------------------
+   ACCIONES LOCALSTORAGE
+------------------------------ */
+.accionesLocalStorage {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.accionesLocalStorage button {
+    width: 100%;
+    margin: 5px 0;
+}
+
+/* ------------------------------
+   ANIMACIONES
+------------------------------ */
+.oculto {
+    display: none;
+}
+
+.seccion {
+    animation: fade 0.3s ease;
+}
+
+@keyframes fade {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------------------------
+   LOGIN SCREEN
+------------------------------ */
+#loginScreen {
+    margin-top: 60px;
+    background: white;
+    padding: 25px;
+    width: 90%;
+    max-width: 350px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+.login-box input {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.login-box button {
+    width: 100%;
+    margin-top: 15px;
+}
+
+#menuPrincipal {
+    display: none; /* oculto hasta validar password */
+}

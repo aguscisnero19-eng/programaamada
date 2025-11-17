@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Inventario local de ropa</title>
+    <link href="STYLE.CSS" rel="stylesheet">
+</head>
+
+<body>
+
+    <h1>🛍️ ROPA Y ZAPATILLAS AMADA</h1>
+    <!-- LOGIN -->
+<div id="loginScreen">
+    <h2>Acceso al Sistema</h2>
+    <div class="login-box">
+        <input type="password" id="claveAcceso" placeholder="Ingrese contraseña">
+        <button onclick="validarPassword()">Ingresar</button>
+        <p id="msgLogin" class="mensaje"></p>
+    </div>
+</div>  
+<!-- Barra superior (categoría activa y botón para volver) -->
+<div id="barraSuperior" class="oculto">
+    <h2 id="tituloCategoriaBarra"></h2>
+</div>
+
+    <!-- SELECCIÓN DE CATEGORÍA -->
+<div class="menu-principal" id="menuPrincipal" style="display:none;">
+        <h2>Seleccioná una categoría</h2>
+<button onclick="mostrarCategoria('ropa')">👗 Ropa</button>
+<button onclick="mostrarCategoria('zapatillas')">👟 Zapatillas</button>
+    </div>
+
+    <!-- SECCIONES DE CATEGORÍA -->
+    <div id="contenedorCategorias" class="oculto">
+
+        <button class="btn-volver" onclick="volverMenu()">⬅ Volver al menú</button>
+
+        <h2 id="tituloCategoria"></h2>
+
+        <div class="menu-opciones">
+            <button onclick="mostrarSeccion('registrar')">Registrar producto</button>
+            <button onclick="mostrarSeccion('inventario')">Inventario</button>
+            <button onclick="mostrarSeccion('venta')">Realizar venta</button>
+        </div>
+
+        <!-- Registrar -->
+        <div id="registrar" class="seccion">
+            <h3>Registrar producto</h3>
+            <input type="text" id="nombre" placeholder="Nombre">
+            <input type="text" id="talla" placeholder="Talla">
+            <input type="number" id="precio" placeholder="Precio">
+            <input type="number" id="cantidad" placeholder="Cantidad">
+            <button onclick="registrarProducto()">Guardar</button>
+            <p id="msgRegistrar" class="mensaje"></p>
+        </div>
+
+        <!-- Inventario -->
+        <div id="inventario" class="seccion">
+            <h3>Inventario</h3>
+            <table id="tablaInventario">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Talla</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <div class="accionesLocalStorage">
+                <button onclick="exportarExcel()">📊 Excel</button>
+                <button onclick="exportarPDF()">📄 PDF</button>
+                <button onclick="guardarEnLocalStorage()">💾 Guardar</button>
+                <button onclick="cargarDesdeLocalStorage()">📥 Cargar</button>
+                <button onclick="borrarInventario()">🧹 Borrar</button>
+            </div>
+
+            <p id="msgLocal" class="mensaje"></p>
+        </div>
+
+        <!-- Venta -->
+        <div id="venta" class="seccion">
+            <h3>Realizar venta</h3>
+            <input type="text" id="buscarNombre" placeholder="Nombre del producto">
+            <input type="number" id="cantidadVenta" placeholder="Cantidad a vender">
+            <button onclick="realizarVenta()">Vender</button>
+            <p id="msgVenta" class="mensaje"></p>
+        </div>
+
+    </div>
+
+    <script src="TIENDA.JS"></script>
+
+    <!-- Librerías externas -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+
+</body>
+</html>

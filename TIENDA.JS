@@ -10,6 +10,15 @@ function mostrarCategoria(tipo) {
     }
 
     categoriaActual = tipo; // guarda la categoría elegida
+// Cargar inventario automáticamente si existe en LocalStorage
+let almacenado = localStorage.getItem("inventario_" + categoriaActual);
+if (almacenado) {
+    if (categoriaActual === "ropa") {
+        inventarioRopa = JSON.parse(almacenado);
+    } else {
+        inventarioZapatillas = JSON.parse(almacenado);
+    }
+}
 
     // Oculta menú principal
     document.getElementById("menuPrincipal").style.display = "none";
@@ -91,23 +100,106 @@ function registrarProducto() {
 // ───────────────────────────
 // ACTUALIZAR TABLA
 // ───────────────────────────
+ function actualizarTabla() {
+
+    // 🟢 Limpia el buscador al actualizar la tabla
+    if (document.getElementById("buscadorInventario")) {
+        document.getElementById("buscadorInventario").value = "";
+    }
+
+    let inventario = obtenerInventario();
+    let tbody = document.querySelector("#tablaInventario tbody");
+
+    tbody.innerHTML = "";
+}
 function actualizarTabla() {
     let inventario = obtenerInventario();
     let tbody = document.querySelector("#tablaInventario tbody");
 
     tbody.innerHTML = "";
 
-    inventario.forEach(item => {
+    inventario.forEach((item, index) => {
         let fila = `
             <tr>
                 <td>${item.nombre}</td>
                 <td>${item.talla}</td>
                 <td>$${item.precio}</td>
                 <td>${item.cantidad}</td>
+                <td>
+                    <button onclick="editarProducto(${index})">✏ Editar</button>
+                    <button onclick="eliminarProducto(${index})">🗑 Eliminar</button>
+                </td>
             </tr>`;
         tbody.innerHTML += fila;
     });
 }
+function editarProducto(index) {
+    let inventario = obtenerInventario();
+    let producto = inventario[index];
+
+    let nuevoNombre = prompt("Nuevo nombre:", producto.nombre);
+    if (nuevoNombre === null) return;
+
+    let nuevaTalla = prompt("Nueva talla:", producto.talla);
+    if (nuevaTalla === null) return;
+
+    let nuevoPrecio = parseFloat(prompt("Nuevo precio:", producto.precio));
+    if (isNaN(nuevoPrecio)) return;
+
+    let nuevaCantidad = parseInt(prompt("Nueva cantidad:", producto.cantidad));
+    if (isNaN(nuevaCantidad)) return;
+
+    inventario[index] = {
+        nombre: nuevoNombre,
+        talla: nuevaTalla,
+        precio: nuevoPrecio,
+        cantidad: nuevaCantidad
+    };
+
+    guardarEnLocalStorage();
+    actualizarTabla();
+}
+function eliminarProducto(index) {
+    let inventario = obtenerInventario();
+
+    if (!confirm("¿Seguro que deseas eliminar este producto?")) {
+        return;
+    }
+
+    inventario.splice(index, 1);
+
+    guardarEnLocalStorage();
+    actualizarTabla();
+}
+function buscarProducto() {
+    let texto = document.getElementById("buscadorInventario").value.toLowerCase();
+    let inventario = obtenerInventario();
+    let tbody = document.querySelector("#tablaInventario tbody");
+
+    tbody.innerHTML = "";
+
+    inventario
+        .filter(item =>
+            item.nombre.toLowerCase().includes(texto) ||
+            item.talla.toLowerCase().includes(texto)
+        )
+        .forEach((item, index) => {
+            let fila = `
+                <tr>
+                    <td>${item.nombre}</td>
+                    <td>${item.talla}</td>
+                    <td>$${item.precio}</td>
+                    <td>${item.cantidad}</td>
+                    <td>
+                        <button onclick="editarProducto(${index})">✏ Editar</button>
+                        <button onclick="eliminarProducto(${index})">🗑 Eliminar</button>
+                    </td>
+                </tr>
+            `;
+            tbody.innerHTML += fila;
+        });
+}
+
 
 // ───────────────────────────
 // REALIZAR VENTA
@@ -141,12 +233,22 @@ function realizarVenta() {
 // LOCALSTORAGE INDEPENDIENTE POR CATEGORÍA
 // ───────────────────────────
 function guardarEnLocalStorage() {
-    let inventario = obtenerInventario();
+    let productos = categoriaActual === "ropa" ? inventarioRopa : inventarioZapatillas;
 
-    localStorage.setItem("inventario_" + categoriaActual, JSON.stringify(inventario));
+    // Si no hay productos, NO guardar
+    if (!productos || productos.length === 0) {
+        document.getElementById("msgLocal").textContent =
+            "⚠ No se puede guardar: no hay productos registrados.";
+        return;
+    }
 
-    document.getElementById("msgLocal").innerText = "Inventario guardado ✔";
+    localStorage.setItem("inventario_" + categoriaActual, JSON.stringify(productos));
+
+    document.getElementById("msgLocal").textContent =
+        "✔ Inventario guardado correctamente.";
 }
+
+
 
 function cargarDesdeLocalStorage() {
     let data = localStorage.getItem("inventario_" + categoriaActual);

@@ -42,19 +42,31 @@
             <button onclick="mostrarSeccion('registrar')">Registrar producto</button>
             <button onclick="mostrarSeccion('inventario')">Inventario</button>
             <button onclick="mostrarSeccion('venta')">Realizar venta</button>
-        </div>
+            <button onclick="mostrarHistorial()">Historial de ventas</button>
 
-        <!-- Registrar -->
-        <div id="registrar" class="seccion">
-            <h3>Registrar producto</h3>
-            <input type="text" id="nombre" placeholder="Nombre">
-            <input type="text" id="talla" placeholder="Talla">
-            <input type="number" id="precio" placeholder="Precio">
-            <input type="number" id="cantidad" placeholder="Cantidad">
-            <button onclick="registrarProducto()">Guardar</button>
-            <p id="msgRegistrar" class="mensaje"></p>
         </div>
+<div id="registrar" class="seccion">
+    <h3>Registrar producto</h3>
+    
+    <div id="camposRegistrarRopa">
+        <input type="text" id="nombreRopa" placeholder="Nombre/Modelo de Ropa">
+        <input type="text" id="tallaRopa" placeholder="Talla (S, M, L, XL)">
+        <input type="number" id="precioRopa" placeholder="Precio">
+        <input type="number" id="cantidadRopa" placeholder="Cantidad">
+    </div>
 
+    <div id="camposRegistrarZapatillas" style="display:none;">
+        <input type="text" id="nombreZapatilla" placeholder="Nombre/Modelo de Zapatilla">
+        <input type="text" id="tallaZapatilla" placeholder="Talla (38, 39, 40...)">
+        <input type="text" id="colorZapatilla" placeholder="Color">
+        <input type="number" id="precioZapatilla" placeholder="Precio (base)">
+        <input type="number" id="cantidadZapatilla" placeholder="Cantidad">
+    </div>
+
+    <button onclick="registrarProducto()">Guardar</button>
+    <p id="msgRegistrar" class="mensaje"></p>
+</div>
+       
         <!-- Inventario -->
         <div id="inventario" class="seccion">
             <h3>Inventario</h3>
@@ -65,18 +77,19 @@
              onkeyup="buscarProducto()"
              style="margin-bottom: 10px; padding: 5px; width: 100%; font-size: 16px;"
              >
-
+   
             <table id="tablaInventario">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Talla</th>
-                        <th>Precio</th>
-                        <th>Cantidad</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
+             <thead>
+               <tr>
+                <th>Nombre</th>
+                <th>Talla</th>
+                <th>Color</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Acciones</th>
+               </tr>
+              </thead>
+             <tbody></tbody>
             </table>
 
             <div class="accionesLocalStorage">
@@ -90,15 +103,45 @@
             <p id="msgLocal" class="mensaje"></p>
         </div>
 
-        <!-- Venta -->
         <div id="venta" class="seccion">
-            <h3>Realizar venta</h3>
-            <input type="text" id="buscarNombre" placeholder="Nombre del producto">
-            <input type="number" id="cantidadVenta" placeholder="Cantidad a vender">
-            <button onclick="realizarVenta()">Vender</button>
-            <p id="msgVenta" class="mensaje"></p>
-        </div>
+    <h3>Realizar venta</h3>
 
+    <div id="camposVentaRopa">
+        <h4>Venta de Ropa</h4>
+        <input type="text" id="buscarNombre" placeholder="Nombre/Modelo de ropa">
+        <input type="number" id="cantidadVenta" placeholder="Cantidad a vender">
+    </div>
+
+    <div id="camposVentaZapatillas" style="display:none;">
+        <h4>Venta de Zapatillas</h4>
+        <input type="text" id="buscarNombreZ" placeholder="Nombre/Modelo de zapatilla">
+        <input type="text" id="tallaVentaZ" placeholder="Talla a vender">
+        <input type="text" id="colorVentaZ" placeholder="Color a vender">
+        <input type="number" id="cantidadVentaZ" placeholder="Cantidad a vender">
+    </div>
+    <div id="historial" class="seccion">
+    <h3>Historial de ventas</h3>
+
+    <table id="tablaHistorial">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Categoría</th>
+                <th>Producto</th>
+                <th>Talla</th>
+                <th>Color</th>
+                <th>Cantidad</th>
+                <th>Precio U.</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+    <button onclick="realizarVenta()">Vender</button>
+    <p id="msgVenta" class="mensaje"></p>
+</div>
     </div>
 
     <script src="TIENDA.JS"></script>

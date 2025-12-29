@@ -759,7 +759,7 @@ function exportarPDF() {
    SISTEMA DE ACCESO POR PASSWORD
 ========================================================== */
 
-const PASSWORD_CORRECTO = "1808"; // podés cambiarla
+const PASSWORD_CORRECTO = "1208"; // podés cambiarla
 
 let accesoPermitido = false;
 
@@ -782,5 +782,6 @@ function validarPassword() {
         msg.style.color = "red";
     }
 }
+
 
 
